@@ -85,6 +85,7 @@
 #define MINC		20	/* allocation increment */
 
 #define UNUSED(x)	((void)x)
+extern int stat_depth;
 
 /* tree.c / global */
 struct Flags {
@@ -96,6 +97,7 @@ struct Flags {
   bool ignorecase, matchdirs, fromfile, metafirst, gitignore, showinfo;
   bool reverse, fflinks, htmloffset, acl, selinux, condense_singletons;
   bool colorize, ansilines, linktargetcolor, remove_space;
+  bool stat;
   int flimit, compress_indent;
 };
 

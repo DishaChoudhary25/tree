@@ -131,7 +131,7 @@ void emit_tree(char **dirname, bool needfulltree)
     if (inf != NULL) inf = pop_infostack();
   }
 
-  if (!flag.noreport) lc.report(tot);
+  if (!flag.noreport || flag.stat) lc.report(tot);
 
   lc.outtro();
 }
@@ -149,7 +149,8 @@ struct totals listdir(char *dirname, struct _info **dir, int lev, dev_t dev, boo
   size_t dirlen = strlen(dirname)+2, pathlen = dirlen + 257;
   bool found;
   char *path, *newpath, *filename, *err = NULL;
-
+  if (lev > stat_depth)
+    stat_depth = lev;
   int es = (dirname[strlen(dirname) - 1] == '/');
 
   // Sanity check on dir, may or may not be necessary when using --fromfile:

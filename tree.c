@@ -27,6 +27,7 @@ char *hversion= "\t\t tree v2.3.2 %s 1996 - 2026 by Steve Baker and Thomas Moore
 /* Globals */
 struct Flags flag;
 struct listingcalls lc;
+int stat_depth = 0;
 
 int pattern = 0, maxpattern = 0, ipattern = 0, maxipattern = 0;
 char **patterns = NULL, **ipatterns = NULL;
@@ -415,6 +416,17 @@ int main(int argc, char **argv)
 	      flag.prune = (opt_toggle? !flag.prune : true);
 	      break;
 	    }
+      if (!strcmp("--size", argv[i])) {
+        flag.s = true;
+        flag.du = true;
+        j = strlen(argv[i])-1;
+        break;
+      }
+      if (!strcmp("--stat", argv[i])) {
+        j = strlen(argv[i])-1;
+        flag.stat = true;
+        break;
+      }
 	    if ((arg = long_arg(argv, i, &j, &n, "--timefmt")) != NULL) {
 	      timefmt = scopy(arg);
 	      flag.D = true;

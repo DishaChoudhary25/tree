@@ -141,8 +141,19 @@ void unix_report(struct totals tot)
     psize(buf, tot.size);
     fprintf(outfile,"%s%s used in ", buf, flag.h || flag.si? "" : " bytes");
   }
-  if (flag.d)
-    fprintf(outfile,"%ld director%s\n",tot.dirs,(tot.dirs==1? "y":"ies"));
-  else
-    fprintf(outfile,"%ld director%s, %ld file%s\n",tot.dirs,(tot.dirs==1? "y":"ies"),tot.files,(tot.files==1? "":"s"));
+  if (flag.stat) {
+    fprintf(outfile, "%ld directories, %ld files, depth %d\n",
+            tot.dirs, tot.files, stat_depth);
+}
+else if (flag.d) {
+    fprintf(outfile, "%ld director%s\n",
+            tot.dirs, (tot.dirs == 1 ? "y" : "ies"));
+}
+else {
+    fprintf(outfile, "%ld director%s, %ld file%s\n",
+            tot.dirs,
+            (tot.dirs == 1 ? "y" : "ies"),
+            tot.files,
+            (tot.files == 1 ? "" : "s"));
+}
 }
